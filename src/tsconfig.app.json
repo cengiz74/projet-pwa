@@ -3,8 +3,23 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es2016", "dom"],
     "module": "es2015",
-    "types": []
+    "sourceMap": true,
+    "target": "es5",
+    "moduleResolution": "node",
+    "typeRoots": [
+      "../node_modules/@types"
+    ],
+    "types": [
+      "hammerjs"
+    ],
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
+    "allowUnreachableCode": false,
+    "pretty": true
   },
   "exclude": [
     "test.ts",

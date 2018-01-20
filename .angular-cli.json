@@ -23,7 +23,10 @@
         "theme.scss",
         "../node_modules/@covalent/core/common/platform.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/hammerjs/hammer.min.js",
+        "../node_modules/showdown/dist/showdown.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -57,7 +60,11 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
-    "component": {}
+    "styleExt": "scss",
+    "component": {},
+    "serve": {
+      "port": 4200,
+      "host": "localhost"
+    }
   }
 }
