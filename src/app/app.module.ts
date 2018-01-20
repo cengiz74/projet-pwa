@@ -19,6 +19,9 @@ import { routedComponents, AppRoutingModule } from './app-routing.module';
 
 import { SharedModule } from './shared/shared.module';
 
+import { AuthGuard } from './_guards/';
+import { AuthenticationService } from '../services/authentication.service';
+
 import { RequestInterceptor } from '../config/interceptors/request.interceptor';
 
 const httpInterceptorProviders: Type<any>[] = [
@@ -51,6 +54,8 @@ const httpInterceptorProviders: Type<any>[] = [
   ],
   providers: [
     httpInterceptorProviders,
+    AuthGuard,
+    AuthenticationService,
   ],
   bootstrap: [AppComponent]
 })

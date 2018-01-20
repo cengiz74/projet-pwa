@@ -8,7 +8,7 @@ import { TdLoadingService, TdDigitsPipe } from '@covalent/core';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  viewProviders: [ ], // ItemsService, ProductsService, AlertsService ],
+  viewProviders: [], // ItemsService, ProductsService, AlertsService ],
 })
 
 export class DashboardComponent implements OnInit {
@@ -16,6 +16,6 @@ export class DashboardComponent implements OnInit {
   year: any = new Date().getFullYear();
   constructor(private _titleService: Title) {}
   ngOnInit(): void {
-    this._titleService.setTitle('Covalent Quickstart');
+    this._titleService.setTitle('GestiClean Up');
   }
 }
