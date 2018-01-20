@@ -11,4 +11,11 @@ import { TdLoadingService, TdDigitsPipe } from '@covalent/core';
   viewProviders: [ ], // ItemsService, ProductsService, AlertsService ],
 })
 
-export class DashboardComponent {};
+export class DashboardComponent implements OnInit {
+  // Current date
+  year: any = new Date().getFullYear();
+  constructor(private _titleService: Title) {}
+  ngOnInit(): void {
+    this._titleService.setTitle('Covalent Quickstart');
+  }
+}
