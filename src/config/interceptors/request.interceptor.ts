@@ -44,5 +44,5 @@ function getBaseAPIUrl() {
         if (console) { console.info('Using base API URL: ' + apiUrl); };
         return apiUrl;
     }
-    return 'http://localhost:4200/';
+    return 'http://gup.com:8000/';
 }

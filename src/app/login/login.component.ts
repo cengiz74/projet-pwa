@@ -26,13 +26,19 @@ export class LoginComponent implements OnInit {
     this.authenticationService.logout();
   }
 
-  login(): void {
+  login() {
     this._loadingService.register();
-    this.authenticationService.login(this.model.username, this.model.password)
+    // alert('log in as ' + this.model.username + this.model.password);
+    this.authenticationService.login(this.username, this.password)
       .subscribe(result => {
         if (result === true) {
-          this._router.navigate(['/']);
+          // alert('Result ' + result);
+          setTimeout(() => {
+            this._router.navigate(['']);
+            this._loadingService.resolve();
+          }, 1000);
         } else {
+          alert('Error ' + this.username);
           this.error = 'Username or password is incorrect';
           this._loadingService.resolve();
         }
