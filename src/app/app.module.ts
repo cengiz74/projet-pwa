@@ -23,6 +23,8 @@ import { AuthenticationService } from '../services/authentication.service';
 import { TokenInterceptor } from '../config/interceptors/request.interceptor';
 import { BASE_URI } from '../config/api.config';
 
+export function tokenGetter() {return localStorage.getItem('access_token');}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,9 +38,7 @@ import { BASE_URI } from '../config/api.config';
     HttpClientModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return localStorage.getItem('access_token');
-        },
+        tokenGetter,
         whitelistedDomains: [BASE_URI]
       }
     }),
