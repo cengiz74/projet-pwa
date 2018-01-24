@@ -28,20 +28,14 @@ export class LoginComponent implements OnInit {
 
   login() {
     this._loadingService.register();
-    // alert('log in as ' + this.model.username + this.model.password);
     this.authenticationService.login(this.username, this.password)
-      .subscribe(result => {
-        if (result === true) {
-          // alert('Result ' + result);
-          setTimeout(() => {
-            this._router.navigate(['']);
-            this._loadingService.resolve();
-          }, 1000);
+      .subscribe((loggedIn: boolean) => {
+        if (loggedIn === true) {
+          this._router.navigate(['/']);
         } else {
-          alert('Error ' + this.username);
-          this.error = 'Username or password is incorrect';
-          this._loadingService.resolve();
-        }
+          this.error = 'Wrong username or password';
+        };
+        this._loadingService.resolve();
       });
   }
 }
