@@ -11,6 +11,7 @@ interface LoginResponse { token: string; }
 @Injectable()
 export class AuthenticationService {
     public token: string;
+    redirectUrl: string;
 
     constructor(private http: HttpClient, private jwtHelperService: JwtHelperService) {
         // set token if saved in local storage
@@ -23,6 +24,14 @@ export class AuthenticationService {
     }
 
 
+    isExpectedRole(expectedRole) {
+      const token: string = this.jwtHelperService.tokenGetter();
+      if (!this.isLoggedIn() || this.jwtHelperService.decodeToken(token).role !== expectedRole) {
+        return false;
+      }
+      return true;
+    }
+
     isLoggedIn() {
       const token: string = this.jwtHelperService.tokenGetter();
 
@@ -31,6 +40,7 @@ export class AuthenticationService {
       }
 
       const tokenExpired: boolean = this.jwtHelperService.isTokenExpired(token);
+      console.log(this.jwtHelperService.decodeToken(token));
 
       return !tokenExpired;
     }

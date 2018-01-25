@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {I18n} from '@ngx-translate/i18n-polyfill';
 
-import { TdLoadingService, TdDialogService } from '@covalent/core';
+import {TdLoadingService, TdDialogService} from '@covalent/core';
 
-import { AuthenticationService } from '../../services/authentication.service';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -34,24 +34,26 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.username, this.password)
       .subscribe((loggedIn: boolean) => {
           if (loggedIn === true) {
-            this._router.navigate(['/']);
+            // Get the redirect URL from our auth service
+            // If no redirect has been set, use the default
+            let redirect = this.authenticationService.redirectUrl ? this.authenticationService.redirectUrl : '/';
+            this._router.navigate([redirect]);
           }
         },
         err => {
           this.error = true;
           this.openAlert();
         });
-      this._loadingService.resolve();
+    this._loadingService.resolve();
   }
 
-  // Of course we shall create a dialog component, this one is used to demonstrate i18n translation capabilities
-    openAlert(): void {
+  openAlert(): void {
     this._dialogService.openAlert({
       message: this.i18n('Wrong Username or password'),
-      disableClose: false, // defaults to false
-      title: this.i18n('Alert'), //OPTIONAL, hides if not provided
-      closeButton: this.i18n('Close'), //OPTIONAL, defaults to 'CLOSE'
-      width: '400px', //OPTIONAL, defaults to 400px
+      disableClose: false,
+      title: this.i18n('Login alert'),
+      closeButton: this.i18n('Close'),
+      width: '400px',
     });
   }
 }
