@@ -53,6 +53,42 @@ When inside an html tag, for instance:
 <input matInput #passElement #passControl="ngModel" i18n-placeholder placeholder="Password" type="password" name="password" [(ngModel)]="password" required>
 ```
 
+Basically we cannot translate strings in typscript. Dev is going on at Google but the main dev provided a library that could be used before native i18n could be improved:
+https://github.com/ngx-translate/i18n-polyfill
+The use is as simple as in html templates for instance:
+```typescript
+import { I18n } from '@ngx-translate/i18n-polyfill';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+})
+export class LoginComponent {
+  model: any = {};
+  username: string;
+  password: string;
+  error: boolean = false;
+
+  constructor(private i18n: I18n) {
+  }
+
+    openAlert(): void {
+    this._dialogService.openAlert({
+      message: this.i18n('Wrong Username or password'),
+      disableClose: false, // defaults to false
+      title: 'Alert', //OPTIONAL, hides if not provided
+      closeButton: 'Close', //OPTIONAL, defaults to 'CLOSE'
+      width: '400px', //OPTIONAL, defaults to 400px
+    });
+  }
+  }
+```
+After running the "standard" extraction command use this one for ts files:
+```bash
+node node_modules/.bin/ngx-extractor -i src/**/*.ts -f xlf -o src/messages.xlf
+```
+And translate new terms.
 
 ## Authentication
 

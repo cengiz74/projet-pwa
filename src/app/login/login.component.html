@@ -11,6 +11,7 @@
           <mat-divider></mat-divider>
           <mat-card-content>
             <form #loginForm="ngForm">
+              <div *ngIf="error" class="help-block error small">Username or password is incorrect.</div>
               <div layout="row">
                 <mat-form-field flex>
                   <input matInput #userElement #userControl="ngModel" i18n-placeholder placeholder="Username" type="text" maxlength="30" name="username" [(ngModel)]="username" required>
