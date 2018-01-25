@@ -39,17 +39,18 @@ export class LoginComponent implements OnInit {
         },
         err => {
           this.error = true;
-          this.openAlert()
+          this.openAlert();
         });
       this._loadingService.resolve();
   }
 
+  // Of course we shall create a dialog component, this one is used to demonstrate i18n translation capabilities
     openAlert(): void {
     this._dialogService.openAlert({
       message: this.i18n('Wrong Username or password'),
       disableClose: false, // defaults to false
-      title: 'Alert', //OPTIONAL, hides if not provided
-      closeButton: 'Close', //OPTIONAL, defaults to 'CLOSE'
+      title: this.i18n('Alert'), //OPTIONAL, hides if not provided
+      closeButton: this.i18n('Close'), //OPTIONAL, defaults to 'CLOSE'
       width: '400px', //OPTIONAL, defaults to 400px
     });
   }

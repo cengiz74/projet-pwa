@@ -27,7 +27,7 @@ import { BASE_URI } from '../config/api.config';
 export function tokenGetter() {return localStorage.getItem('access_token');}
 
 declare const require; // Use the require method provided by webpack
-export const translations = require(`raw-loader!../locale/messages.fr.xlf`);
+export const translations = require(`raw-loader!../locale/messages.en.xlf`);
 
 @NgModule({
   declarations: [
@@ -67,8 +67,7 @@ export const translations = require(`raw-loader!../locale/messages.fr.xlf`);
     // locale id that you're using (default en-US)
     {provide: LOCALE_ID, useValue: 'en'},
     // optional, defines how error will be handled
-    {provide: MISSING_TRANSLATION_STRATEGY, useValue: MissingTranslationStrategy.Error},
-    // {provide: LOCALE_ID, useValue: 'en'},
+    {provide: MISSING_TRANSLATION_STRATEGY, useValue: MissingTranslationStrategy.Ignore},
     I18n,
     AuthGuard,
     AuthenticationService,
