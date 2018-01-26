@@ -100,7 +100,9 @@ The main principles are:
 3. Use guards to protect routes and make sure to be authenticate before routing see the _guard module and canActivate conditions in app-routing.module
 4. Use the HttpInterceptor to authenticate each further requests to the API with the JWT
 
-## Role based auth
+## DISCLAIMER ALL BAD IDEA!!! DO NOT USE THIS Role based auth
+We cannot use this because roles differ from one tenant to another. Therefore the only way I can see is to query the role at each request.
+
 This app has two guard services one RoleAuthGuard and AuthGuard that allows to protect or select correct routes based on the role included in token payload (RoleAuthGuard)
 or simply if it is present (AuthGuard).
 
@@ -133,7 +135,7 @@ export const ROUTES: Routes = [
   { path: '**', redirectTo: '' }
 ];
 ```
-Source: https://medium.com/@ryanchenkie_40935/angular-authentication-using-route-guards-bf7a4ca13ae3
+Source: https://ryanchenkie.com/angular-authentication-using-route-guards
 
 In the GestiClean Up' case this is useful to make sure a user that has right in one tenant could not access another tenant routes and data.
 With our sale model, we are providing at least 5 roles in GestiClean Up':

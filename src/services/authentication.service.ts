@@ -52,7 +52,7 @@ export class AuthenticationService {
         return this.http.post(this.getAPIUrl() + '/rest-auth/login/',
           {email: username, password: password}, httpOptions)
             .map((data: LoginResponse) => {this.token = data.token;
-              console.log(this.token);
+              console.log(this.jwtHelperService.decodeToken(this.token));
               localStorage.setItem('access_token', this.token);
               localStorage.setItem('currentUser', JSON.stringify({ username: username, token: this.token }));
               if (data.token) {return true; } else {return false; };
