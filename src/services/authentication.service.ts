@@ -23,14 +23,17 @@ export class AuthenticationService {
       return this.jwtHelperService.tokenGetter();
     }
 
+  isExpectedRole(expectedRole) {
+    const token: string = this.jwtHelperService.tokenGetter();
 
-    isExpectedRole(expectedRole) {
-      const token: string = this.jwtHelperService.tokenGetter();
-      if (!this.isLoggedIn() || this.jwtHelperService.decodeToken(token).role !== expectedRole) {
-        return false;
-      }
-      return true;
+    if (!token || this.jwtHelperService.decodeToken(token).role !== expectedRole) {
+      return false;
     }
+
+    const tokenExpired: boolean = this.jwtHelperService.isTokenExpired(token);
+
+    return !tokenExpired;
+  }
 
     isLoggedIn() {
       const token: string = this.jwtHelperService.tokenGetter();
@@ -40,7 +43,6 @@ export class AuthenticationService {
       }
 
       const tokenExpired: boolean = this.jwtHelperService.isTokenExpired(token);
-      console.log(this.jwtHelperService.decodeToken(token));
 
       return !tokenExpired;
     }

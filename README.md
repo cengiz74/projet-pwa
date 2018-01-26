@@ -92,10 +92,55 @@ And translate new terms.
 
 ## Authentication
 
-This apps uses Json Web Token to authenticate to a Django REST framework backend through the rest-auth module that provides special endpoints.
+This app uses Json Web Token to authenticate to a Django REST framework backend through the rest-auth module that provides special endpoints.
 The main principles are:
 
 1. Use HttpClient instead of old http library
 2. Request je JWT through a dedicated service `authentication.service` in charge of handling login, logout... and token related methods
 3. Use guards to protect routes and make sure to be authenticate before routing see the _guard module and canActivate conditions in app-routing.module
 4. Use the HttpInterceptor to authenticate each further requests to the API with the JWT
+
+## Role based auth
+This app has two guard services one RoleAuthGuard and AuthGuard that allows to protect or select correct routes based on the role included in token payload (RoleAuthGuard)
+or simply if it is present (AuthGuard).
+
+To make use of it include these instruction in the main router `app-routing.module.ts`:
+```typescript
+// src/app/app.routes.ts
+import { Routes, CanActivate } from '@angular/router';
+import { ProfileComponent } from './profile/profile.component';
+import { 
+  AuthGuardService as AuthGuard 
+} from './auth/auth-guard.service';
+import { 
+  RoleGuardService as RoleGuard 
+} from './auth/role-guard.service';
+export const ROUTES: Routes = [
+  { path: '', component: HomeComponent },
+  { 
+    path: 'profile', 
+    component: ProfileComponent, 
+    canActivate: [AuthGuard] 
+  },
+  { 
+    path: 'admin', 
+    component: AdminComponent, 
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'admin'
+    } 
+  },
+  { path: '**', redirectTo: '' }
+];
+```
+Source: https://medium.com/@ryanchenkie_40935/angular-authentication-using-route-guards-bf7a4ca13ae3
+
+In the GestiClean Up' case this is useful to make sure a user that has right in one tenant could not access another tenant routes and data.
+With our sale model, we are providing at least 5 roles in GestiClean Up':
+1. Owner: Users whose own a tenant or saas legal entity
+2. Staff: Users that are associated to one or more tenants
+3. User: Users that are not tied to any tenant. Like customers of a saas legal entity or dry cleaning workers looking
+for a job
+4. Public: Non authenticate users. They only have access to public endpoints (main domain registration part, legal
+entity online shop...)
+5. SuperUser: Us Inforum's users

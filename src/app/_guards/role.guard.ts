@@ -1,23 +1,23 @@
-﻿import {Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class RoleAuthGuard implements CanActivate {
 
   constructor(private auth: AuthenticationService, private router: Router) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     let url: string = state.url;
-    return this.checkLogin(url);
+    const expectedRole = route.data.expectedRole;
+    return this.checkLogin(url, expectedRole);
   }
 
-  checkLogin(url: string): boolean {
-    if (this.auth.isLoggedIn()) {
+  checkLogin(url: string, expectedRole: string): boolean {
+    if (this.auth.isExpectedRole(expectedRole)) {
       return true;
     }
-
     // Store the attempted URL for redirecting
     this.auth.redirectUrl = url;
 
@@ -25,4 +25,3 @@ export class AuthGuard implements CanActivate {
     return false;
   }
 }
-
