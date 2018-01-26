@@ -101,7 +101,10 @@ The main principles are:
 4. Use the HttpInterceptor to authenticate each further requests to the API with the JWT
 
 ## DISCLAIMER ALL BAD IDEA!!! DO NOT USE THIS Role based auth
-We cannot use this because roles differ from one tenant to another. Therefore the only way I can see is to query the role at each request.
+We cannot use this because roles differ from one tenant to another. That would have been great.
+ BUT... We cannot use this because roles 
+differ from one tenant to another. Therefore the only way I can see is to query the role at login time or at init.
+
 
 This app has two guard services one RoleAuthGuard and AuthGuard that allows to protect or select correct routes based on the role included in token payload (RoleAuthGuard)
 or simply if it is present (AuthGuard).
