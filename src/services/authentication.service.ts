@@ -49,14 +49,24 @@ export class AuthenticationService {
 
     login(username: string, password: string): Observable<boolean> {
         const httpOptions = {headers: new HttpHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' })};
+
         return this.http.post(this.getAPIUrl() + '/rest-auth/login/',
           {email: username, password: password}, httpOptions)
             .map((data: LoginResponse) => {this.token = data.token;
               console.log(this.jwtHelperService.decodeToken(this.token));
               localStorage.setItem('access_token', this.token);
               localStorage.setItem('currentUser', JSON.stringify({ username: username, token: this.token }));
+              console.log(data);
               if (data.token) {return true; } else {return false; };
-            }).catch((error: any) => Observable.throw(error.json().error || 'Server error'));;
+            }).catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    userRole() {
+      let results: string[];
+      const httpOptions = {headers: new HttpHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' })};
+      this.http.get(this.getAPIUrl() + '/rest-auth/user/',
+          httpOptions).subscribe(data => {results = data['results']; });
+      console.log(results);
     }
 
     logout(): void {

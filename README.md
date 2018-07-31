@@ -100,10 +100,12 @@ The main principles are:
 3. Use guards to protect routes and make sure to be authenticate before routing see the _guard module and canActivate conditions in app-routing.module
 4. Use the HttpInterceptor to authenticate each further requests to the API with the JWT
 
-## DISCLAIMER ALL BAD IDEA!!! DO NOT USE THIS Role based auth
+## Role based auth
 We cannot use this because roles differ from one tenant to another. That would have been great.
  BUT... We cannot use this because roles 
 differ from one tenant to another. Therefore the only way I can see is to query the role at login time or at init.
+
+OR, the request handler in charge of return
 
 
 This app has two guard services one RoleAuthGuard and AuthGuard that allows to protect or select correct routes based on the role included in token payload (RoleAuthGuard)

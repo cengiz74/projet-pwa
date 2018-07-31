@@ -36,8 +36,9 @@ export class LoginComponent implements OnInit {
           if (loggedIn === true) {
             // Get the redirect URL from our auth service
             // If no redirect has been set, use the default
-            let redirect = this.authenticationService.redirectUrl ? this.authenticationService.redirectUrl : '/';
+            const redirect = this.authenticationService.redirectUrl ? this.authenticationService.redirectUrl : '/';
             this._router.navigate([redirect]);
+            this.authenticationService.userRole();
           }
         },
         err => {
