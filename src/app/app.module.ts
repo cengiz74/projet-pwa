@@ -3,7 +3,7 @@ import { LOCALE_ID, NgModule, Type, TRANSLATIONS, TRANSLATIONS_FORMAT, MissingTr
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { I18n, MISSING_TRANSLATION_STRATEGY } from '@ngx-translate/i18n-polyfill';
-
+import { CommonModule } from '@angular/common';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from './app.component';
 
@@ -12,7 +12,6 @@ import { environment } from '../environments/environment';
 import { CovalentLayoutModule, CovalentStepsModule, CovalentDialogsModule /*, any other modules */ } from '@covalent/core';
 import { CovalentHighlightModule } from '@covalent/highlight';
 import { CovalentMarkdownModule } from '@covalent/markdown';
-import { CovalentDynamicFormsModule } from '@covalent/dynamic-forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { routedComponents, AppRoutingModule } from './app-routing.module';
 
@@ -40,6 +39,7 @@ export const translations = require(`raw-loader!../locale/messages.en.xlf`);
     BrowserAnimationsModule,
     SharedModule,
     HttpClientModule,
+    CommonModule,
     JwtModule.forRoot({
       config: {
         tokenGetter,
@@ -51,7 +51,6 @@ export const translations = require(`raw-loader!../locale/messages.en.xlf`);
     CovalentStepsModule,
     CovalentHighlightModule,
     CovalentMarkdownModule,
-    CovalentDynamicFormsModule,
     BrowserModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
   ],
