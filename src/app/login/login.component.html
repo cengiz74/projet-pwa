@@ -14,12 +14,12 @@
               <div *ngIf="error" class="help-block error small">Username or password is incorrect.</div>
               <div layout="row">
                 <mat-form-field flex>
-                  <input matInput #userElement #userControl="ngModel" i18n-placeholder placeholder="Username" type="text" maxlength="30" name="username" [(ngModel)]="username" required>
+                  <input matInput #userElement #userControl="ngModel" i18n-placeholder placeholder="Username" type="text" maxlength="40" name="username" [(ngModel)]="username" required>
                   <span md-prefix><mat-icon>person</mat-icon></span>
                   <mat-hint align="start">
                     <span [hidden]="!userControl.errors?.required || userControl.pristine" class="tc-red-600" i18n>Required</span>
                   </mat-hint>
-                  <mat-hint align="end">{{userElement.value.length}} / 30</mat-hint>
+                  <mat-hint align="end">{{userElement.value.length}} / 40</mat-hint>
                 </mat-form-field>
               </div>
               <div layout="row">

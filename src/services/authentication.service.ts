@@ -50,8 +50,8 @@ export class AuthenticationService {
     login(username: string, password: string): Observable<boolean> {
         const httpOptions = {headers: new HttpHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' })};
 
-        return this.http.post(this.getAPIUrl() + '/rest-auth/login/',
-          {email: username, password: password}, httpOptions)
+        return this.http.post(this.getAPIUrl() + '/auth/login/',
+          {username: username, password: password}, httpOptions)
             .map((data: LoginResponse) => {this.token = data.token;
               console.log(this.jwtHelperService.decodeToken(this.token));
               localStorage.setItem('access_token', this.token);
@@ -64,7 +64,7 @@ export class AuthenticationService {
     userRole() {
       let results: string[];
       const httpOptions = {headers: new HttpHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' })};
-      this.http.get(this.getAPIUrl() + '/rest-auth/user/',
+      this.http.get(this.getAPIUrl() + '/auth/user/',
           httpOptions).subscribe(data => {results = data['results']; });
       console.log(results);
     }
@@ -77,6 +77,7 @@ export class AuthenticationService {
     }
 
     getAPIUrl(): string {
-      return (BASE_SCHEME + window.location.hostname + ':' + BASE_PORT);
+      // return (BASE_SCHEME + window.location.hostname + ':' + BASE_PORT);
+      return (BASE_SCHEME + 'metalprogettitest.inforum.io/api/cashupfr');
      }
 }
