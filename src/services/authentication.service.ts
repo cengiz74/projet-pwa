@@ -78,6 +78,7 @@ export class AuthenticationService {
 
     getAPIUrl(): string {
       // return (BASE_SCHEME + window.location.hostname + ':' + BASE_PORT);
-      return (BASE_SCHEME + 'metalprogettitest.inforum.io/api/cashupfr');
+      // return (BASE_SCHEME + 'metalprogettitest.inforum.io/api/cashupfr');
+      return (BASE_SCHEME + '127.0.0.1:3000');
      }
 }

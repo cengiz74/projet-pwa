@@ -6,6 +6,8 @@ import { I18n, MISSING_TRANSLATION_STRATEGY } from '@ngx-translate/i18n-polyfill
 import { CommonModule } from '@angular/common';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from './app.component';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './in-memory-data.service';
 
 import { environment } from '../environments/environment';
 
@@ -23,7 +25,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { TokenInterceptor } from '../config/interceptors/request.interceptor';
 import { BASE_URI } from '../config/api.config';
 
-export function tokenGetter() {return localStorage.getItem('access_token');}
+export function tokenGetter() {return localStorage.getItem('access_token'); }
 
 declare const require; // Use the require method provided by webpack
 export const translations = require(`raw-loader!../locale/messages.en.xlf`);
@@ -39,6 +41,9 @@ export const translations = require(`raw-loader!../locale/messages.en.xlf`);
     BrowserAnimationsModule,
     SharedModule,
     HttpClientModule,
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false }
+    // ),
     CommonModule,
     JwtModule.forRoot({
       config: {
